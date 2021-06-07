@@ -1,0 +1,62 @@
+﻿@model WordModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" autocomplete="off" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="Vocable"></label>
+                <input asp-for="Vocable" class="form-control" />
+                <span asp-validation-for="Vocable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mean"></label>
+                <input asp-for="Mean" class="form-control" />
+                <span asp-validation-for="Mean" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DomainId"></label>
+                <select asp-for="DomainId" class="form-control" asp-items="ViewBag.Domains"></select>
+                <span asp-validation-for="DomainId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath"></label>
+                @if (!string.IsNullOrWhiteSpace(Model.ImagePath))
+                {
+                    <img class="img-fluid" src="~/files/words/@Model.ImagePath" />
+                }
+                <br />
+                <input type="file" name="image" accept="@AppSettings.AcceptedImageExtensions" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @if (!string.IsNullOrWhiteSpace(Model.ImagePath))
+                {
+                    @:&nbsp; &nbsp;
+                    <a asp-action="DeleteWordImage" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete Image</a>
+                }
+                &nbsp;&nbsp;
+                <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+        <a asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+        &nbsp;&nbsp;
+        <a asp-action="DeleteWordImage" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete Image</a>
+    </div>*@
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

@@ -1,0 +1,87 @@
+﻿@model QuestionsViewModel
+<table class="table">
+    @*<thead>
+        <tr>
+            <th>
+                <h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+            </th>
+        </tr>
+    </thead>*@
+    <tbody>
+        @{
+            int i = 0;
+            //for (int i = 0; i < Model.Count; i++)
+            foreach (var item in Model.Questions)
+            {
+                <tr>
+                    <td class="form-check" id="@i">
+                        @Html.DisplayFor(modelItem => item.Question)
+                        <br />
+                        @foreach (var itemAnswer in item.Answers.OrderBy(a => a.Name))
+                        {
+                            <br />
+                            if (Model.IsCorrectAnswer && Model.IsCheck)
+                            {
+                                if (itemAnswer.Id == 3)
+                                {
+                                    <input asp-for="Questions[i].SelectedAnswer.Id" type="radio" value="@itemAnswer.Id" id="(@item.Id.ToString() + @itemAnswer.ToString())" />@:&nbsp;@Html.DisplayFor(modelitem => itemAnswer.Name)<i style="color: lawngreen;" class="fas fa-check"></i>
+                                }
+                                else
+                                {
+                                    <input asp-for="Questions[i].SelectedAnswer.Id" type="radio" value="@itemAnswer.Id" id="(@item.Id.ToString() + @itemAnswer.ToString())" />@:&nbsp;@Html.DisplayFor(modelitem => itemAnswer.Name)
+                                }
+                            }
+                            else
+                            {
+                                <input asp-for="Questions[i].SelectedAnswer.Id" type="radio" value="@itemAnswer.Id" id="(@item.Id.ToString() + @itemAnswer.ToString())" />@:&nbsp;@Html.DisplayFor(modelitem => itemAnswer.Name)
+                            }
+                        }
+                        <input asp-for="Questions[i].SelectedAnswer.Id" type="hidden" value="5" checked />
+                        <br />
+                        <input asp-for="Questions[i].SelectedAnswer.Id" type="radio" value="7" />&nbsp;Blank
+                    </td>
+                    <td>
+                        @if (item.IsCorrect != null)
+                        {
+                            @if (item.IsCorrect == true)
+                            {
+                                <i style="color: lawngreen;" class="fas fa-3x fa-check"></i>
+                            }
+                            else
+                            {
+                                <i style="color: red;" class="fas fa-3x fa-times"></i>
+                            }
+                        }
+                        else
+                        {
+                            if (Model.IsCheck)
+                            {
+                                <i style="color: deepskyblue;" class="far fa-3x fa-sticky-note"></i>
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        <input asp-for="Questions[i].Id" type="hidden" />
+                    </td>
+                </tr>
+                i += 1;
+            }
+        }
+    </tbody>
+</table>
+<div>
+    @*<a class="btn btn-info" id="questioncheck"> Check</a>*@
+    @*<input type="submit" value="Check" class="btn btn-primary" id="questioncheck" />*@
+    <a value="Check" class="btn btn-primary" id="questioncheck"> Check</a>
+    @if (Model.IsCheck)
+    {
+        @:&nbsp;&nbsp;
+        <a class="btn btn-outline-dark" id="correctanswers">Correct Answers</a>
+    }
+    @if (Model.QuestionPage < Model.QuestionPageCount)
+    {
+        @:&nbsp; &nbsp;
+        <a asp-action="Test" asp-route-topicId="@Model.TopicId" class="btn btn-outline-primary" id="nexttest">Next Test <i class="fas fa-arrow-circle-right"></i></a>
+    }
+</div>

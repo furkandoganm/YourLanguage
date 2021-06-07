@@ -1,0 +1,41 @@
+﻿@model UserModel
+
+@{
+    ViewBag.Title = "Identity";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+<div>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(model => model.EMail)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(model => model.EMail)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumbersofWordLearned)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(model => model.NumbersofWordLearned)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-outline-primary" asp-action="Edit" ><i class="fas fa-edit"></i> Edit</a>
+</div>

@@ -1,0 +1,98 @@
+﻿@model StudyViewModel
+
+@{
+    ViewData["Title"] = "Word List";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<div class="col-12">
+    <form asp-action="Create" autocomplete="off" id="wordlistform">
+        @*<div asp-validation-summary="All" class="text-danger"></div>*@
+        <div class="form-group col-12">
+            <label asp-for="ListName"></label>
+            <input asp-for="ListName" class="form-control col-5" style="padding-top: 5px;"/>
+            @{
+                if (ViewBag.ListNameRequired != null)
+                {
+
+                    <p class="text-danger col-4"  style="padding-top: 20px;"><i class="fas fa-exclamation-circle"></i> @ViewBag.ListNameRequired</p>
+                }
+            }
+            @*<span asp-validation-for="ListName" class="text-danger"></span>*@
+        </div>
+        <div id="wordlist" class="col-12">
+            @*<partial name="_CreateWordList" model="Model" />*@
+            <input asp-for="QuizCount" type="hidden" id="wordlistcount" />
+            <input asp-for="IsQuizCorrect" type="hidden" id="isclicked" />
+            <div class="row">
+                <div class="col-10">
+                    <table class="table col-12">
+                        <thead class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StudyModel.FirstOrDefault().Mean)
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-info" style="color: yellow" id="increasewordlistcount"><i class="far fa-calendar-plus"></i> Add</a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @{
+                                        if (ViewBag.QuizMaxLength != null)
+                                        {
+                                            <p class="text-danger"><i class="fas fa-exclamation-circle"></i> @ViewBag.QuizMaxLength</p>
+                                        }
+                                    }
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = Model.QuizCount - 1; i >= 0; i--)
+                            {
+                                <tr>
+                                    <th>
+                                        <select asp-for="StudyModel[i].Id" class="form-control col-6" asp-items="Model.SelectList">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="padding-top: 20px; padding-left: 30px;" id="cursorfocus">
+            @*<a class="btn btn-info" style="color: yellow" id="increasewordlistcount"><i class="far fa-calendar-plus"></i> Add</a>
+                &nbsp;&nbsp;*@
+            <input type="submit" value="Save" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-outline-info"><i class="fas fa-school"></i> Main Page</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $("#isclicked").val(false);
+            //CaretPosition($("#cursorfocus").position);
+            /*$("#cursorfocus").CaretPosition;*/
+            //CaretPosition.val($("#cursorfocus").position);
+        });
+        //$(document).on("click", "#increasewordlistcount", function () {
+        $("#increasewordlistcount").click(function () {
+            var isclicked = $("#isclicked").val();
+            if (isclicked.toLowerCase() == "false") {
+                $("#wordlistcount").val(Number($("#wordlistcount").val()) + 1);
+                //console.log("tamam");
+            }
+            //console.log($("#isclicked").val())
+            //$("#wordlistcount").val(Number($("#wordlistcount").val()) + 1);
+            $("#isclicked").val(true);
+            $("#wordlistform").submit();
+        });
+    </script>
+}

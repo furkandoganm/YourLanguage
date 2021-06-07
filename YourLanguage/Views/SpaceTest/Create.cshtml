@@ -1,0 +1,54 @@
+﻿@model SpaceTestModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@{
+    if (ViewBag.Error != "")
+    {
+        <p class="text-danger">@ViewBag.Error</p>
+    }
+}
+
+<h1 style="color: dodgerblue">@ViewBag.Title</h1>
+
+<div class="col-6">
+    <form asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="QuestionPart1"></label>
+            <input asp-for="QuestionPart1" class="form-control" />
+            <span asp-validation-for="QuestionPart1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerPart1"></label>
+            <input asp-for="AnswerPart1" class="form-control" />
+            <span asp-validation-for="AnswerPart1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="QuestionPart2"></label>
+            <input asp-for="QuestionPart2" class="form-control" />
+            <span asp-validation-for="QuestionPart2" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerWord"></label>
+            <input asp-for="AnswerWord" class="form-control" />
+            <span asp-validation-for="AnswerWord" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TopicId"></label>
+            <select asp-for="TopicId" class="form-control" asp-items="ViewBag.Topic">
+                <option value="">--Select--</option>
+            </select>
+            <span asp-validation-for="TopicId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+            &nbsp;&nbsp;
+            <a class="btn btn-outline-info" asp-action="Index" asp-controller="Study"><i class="fas fa-school"></i> Main Page</a>
+        </div>
+    </form>
+</div>

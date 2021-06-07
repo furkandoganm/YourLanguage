@@ -1,0 +1,72 @@
+﻿@model List<StudyModel>
+
+@{
+    ViewData["Title"] = "List Details";
+}
+<h3 style="color: dodgerblue;">@Html.DisplayFor(model => model.FirstOrDefault().ListName)</h3>
+<div class="row">
+    <div class="col-10">
+        <input asp-for="FirstOrDefault().ListName" type="hidden" id="listnameimput" />
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().Vocable)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().Mean)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().LearningDegree)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Vocable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mean)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LearningDegree)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-listName="@Model.FirstOrDefault().ListName"><i class="fas fa-cash-register"></i> Edit</a>
+            &nbsp; &nbsp;
+            <a href="#" class="btn btn-danger" onclick="deletewordlist(@Model.FirstOrDefault().Id);" id="deletedirectly"><i class="fas fa-trash"></i> Delete List</a>
+            &nbsp; &nbsp;
+            <a asp-action="Index" class="btn btn-outline-info"><i class="fas fa-school"></i> Main Page</a>
+        </div>
+    </div>
+    <div class="col-2">
+        @await Component.InvokeAsync("Lists")
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script>
+        function deletewordlist(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/Study/DeleteWordList/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+    </script>
+}

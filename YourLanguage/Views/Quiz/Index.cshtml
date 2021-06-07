@@ -1,0 +1,102 @@
+﻿@model QuizViewModel
+
+@{ 
+    ViewBag.Title = "Quiz";
+}
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+@{
+    ViewBag.QustionNumber = 3 * (Model.QuizNumber - 1) + Model.QuestionNumber;
+
+}
+<div class="col-12">
+    <form asp-action="Index" method="post" id="quizform">
+        <input asp-for="NextPrevious" type="hidden" id="newtprevious" />
+        <input asp-for="Finish" type="hidden" id="finishinput" />
+        <input asp-for="QuestionNumber" type="hidden" id="questionnumber" />
+        <input asp-for="QuizNumber" type="hidden" id="quiznumber" />
+        @if (Model.QuestionNumber == 1)
+        {
+            <p>@ViewBag.QustionNumber -) Input the correct mean of shown vocable.</p>
+            <br />
+            <div class="form-group col-6">
+                @*<label asp-for="UserWord.Vocable"></label>*@
+                @*<input asp-for="UserWord.Vocable" class="form-control" />*@
+                @Html.DisplayFor(model => model.UserWord.Vocable)
+                <input asp-for="UserWord.Answer" class="form-control" id="answers" />
+                <input asp-for="UserWord.Id" type="hidden" />
+                <input asp-for="UserWord.Mean" type="hidden" />
+            </div>
+        }
+        @if (Model.QuestionNumber == 2)
+        {
+            <p>@ViewBag.QustionNumber -) Select the correct answer of the question.</p>
+            <div class="form-group">
+                @Html.DisplayFor(model => model.QuestionTest.Question)
+                <br />
+                <br />
+                @foreach (var item in Model.QuestionTest.Answers.OrderBy(a => a.Name))
+                {
+                    <input asp-for="QuestionTest.SelectedAnswer.Id" type="radio" value="@item.Id" /> @:&nbsp;@Html.DisplayFor(modelItem => item.Name)
+                    <br />
+                }
+                @if (Model.QuestionTest.SelectedAnswer == null)
+                {
+                    <input asp-for="QuestionTest.SelectedAnswer.Id" type="hidden" value="5" checked />
+                }
+                <input asp-for="QuestionTest.SelectedAnswer.Id" type="radio" value="6" /> &nbsp; Blank
+                <input asp-for="QuestionTest.Id" type="hidden" />
+            </div>
+        }
+        @if (Model.QuestionNumber == 3)
+        {
+            <p>@ViewBag.QustionNumber -) Complete the sentences.</p>
+            <div class="col-12">
+                @Html.DisplayFor(model => model.SpaceTest.QuestionPart1) <input asp-for="SpaceTest.TriedAnswer" /> @Html.DisplayFor(model => model.SpaceTest.QuestionPart2) &nbsp; @if (Model.SpaceTest.AnswerWord != null) { <p class="text-info" style="color: blue">(@Html.DisplayFor(model => model.SpaceTest.AnswerWord))</p>}
+                <input asp-for="SpaceTest.Id" type="hidden" />
+                <input asp-for="SpaceTest.Answer" type="hidden" />
+            </div>
+        }
+        <div>
+            @if (ViewBag.QustionNumber > 1)
+            {
+                <a class="btn btn-outline-secondary" id="previous"> Previous</a>
+                @:&nbsp; &nbsp;
+            }
+            @if (ViewBag.QustionNumber < AppSettings.TestCount)
+            {
+                <a class="btn btn-outline-info" id="next"> Next</a>
+            }
+        </div>
+        <div style="padding-top: 15px;">
+            <a class="btn btn-danger" id="finish"> Finish</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#questionnumber").val(@Model.QuestionNumber);
+            $("#quiznumber").val(@Model.QuizNumber);
+        });
+        $("#next").click(function () {
+            if ($("#questionnumber").val() == 1) {
+                if ($("#answers").val().trim() == null) {
+                    $("#answers").val("bosx")
+                }
+            }
+            $("#newtprevious").val(true);
+            $("#quizform").submit();
+        });
+        $("#previous").click(function () {
+            $("#newtprevious").val(false);
+            $("#quizform").submit();
+        });
+        $("#finish").click(function () {
+            $("#newtprevious").val(null);
+            $("#finishinput").val(true);
+            $("#quizform").submit();
+        });
+    </script>
+}

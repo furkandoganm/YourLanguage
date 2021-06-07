@@ -1,0 +1,54 @@
+﻿@model QuestionTestModel
+
+@{
+    ViewBag.Title = "Create Question";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+<div class="col-12">
+    <form asp-action="Create" autocomplete="off">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" type="hidden" />
+        @Html.AntiForgeryToken()
+        <div class="form-group col-12">
+            <label asp-for="Topic"></label>
+            <select asp-for="TopicId" class="form-control col-12" asp-items="ViewBag.Topics">
+                <option value="">--Select--</option>
+            </select>
+            <span asp-validation-for="TopicId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label asp-for="Question"></label>
+            <input asp-for="Question" class="form-control" />
+            <span asp-validation-for="Question" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label asp-for="CorrectAnswer"></label>
+            <input asp-for="CorrectAnswer" class="form-control"/>
+            <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label asp-for="WrongAnswer1"></label>
+            <input asp-for="WrongAnswer1" class="form-control" />
+            <span asp-validation-for="WrongAnswer1" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label asp-for="WrongAnswer2"></label>
+            <input asp-for="WrongAnswer2" class="form-control" />
+            <span asp-validation-for="WrongAnswer2" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label asp-for="WrongAnswer3"></label>
+            <input asp-for="WrongAnswer3" class="form-control" />
+            <span asp-validation-for="WrongAnswer3" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a class="btn btn-outline-info" asp-action="Index" asp-controller="Study"><i class="fas fa-school"></i> Main Page</a>
+            &nbsp;&nbsp;
+            <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to list</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,68 @@
+﻿@model WordModel
+
+@{
+    ViewData["Title"] = "Word Details";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<div>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vocable)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vocable)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mean)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mean)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Domain.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Domain.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd class="col-sm-3">
+            @if (!string.IsNullOrWhiteSpace(Model.ImagePath))
+            {
+                <img class="img-fluid" src="~/files/words/@Model.ImagePath" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Edit</a>
+        @:&nbsp; &nbsp;
+        <a class="btn btn-danger" href="#" onclick="deleteWord(@Model.Id);"><i class="fas fa-trash"></i> Delete</a>
+        @:&nbsp; &nbsp;
+    }
+    <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+</div>
+@section Scripts{
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <script>
+        function deleteWord(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/Words/Delete/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+    </script>
+}

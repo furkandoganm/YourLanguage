@@ -1,0 +1,43 @@
+﻿@model QuestionsViewModel
+
+@{
+    ViewBag.Title = Model.Topic;
+}
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+<div>
+    <form asp-action="Test" autocomplete="off" id="questioncheckform" data-ajax="true" data-ajax-method="post" data-ajax-mode="replacewith" data-ajax-update="#questiontestajax">
+        <input asp-for="Topic" type="hidden" />
+        <input asp-for="TopicId" type="hidden" id="topicid" />
+        <input asp-for="IsCorrectAnswer" type="hidden" id="correctanswer" />
+        <input asp-for="QuestionPageCount" type="hidden" />
+        <input asp-for="QuestionPage" type="hidden" id="questionPage" />
+        <input asp-for="IsCheck" type="hidden" id="ischeck" />
+        <div class="col- 12" id="questiontestajax">
+            <partial name="_Test" model="@Model" />
+        </div>
+    </form>
+    <div style="padding-top: 30px;">
+        <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to list</a>
+        &nbsp;&nbsp;
+        <a class="btn btn-outline-info" asp-action="Index" asp-controller="Study"><i class="fas fa-school"></i> Main Page</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        $(document).on("click", "#correctanswers", function () {
+            $("#correctanswer").val(true);
+            $("#questioncheckform").submit();
+        });
+        //$("#questioncheck").click(function () {
+        $(document).on("click", "#questioncheck", function () {
+            $("#ischeck").val(true);
+            $("#questioncheckform").submit();
+        });
+        
+        $(document).on("click", "#nexttest", function () {
+            URL: "/QuestionTest/Test" + Number($("#topicid").val());
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@model DomainModel
+
+@{
+    ViewData["Title"] = "Domain Details";
+    OperationNamesViewModel operations = new OperationNamesViewModel();
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <hr />
+    @if (Model.Words != null && Model.Words.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Words.FirstOrDefault().Vocable)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Words.FirstOrDefault().Mean)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Words)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vocable)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mean)
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a title="@operations.Edit" class="btn btn-outline-primary circlebutton" asp-action="Edit" asp-controller="Words" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                @:&nbsp; &nbsp;
+                                <a title="@operations.Delete" class="btn btn-danger circlebutton" href="#" onclick="deleteWord(@item.Id);"><i class="fas fa-trash"></i></a>
+                                @:&nbsp; &nbsp;
+                            }
+                            <a title="@operations.Details" class="btn btn-secondary circlebutton" asp-action="Details" asp-controller="Words" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<hr />
+<div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Edit</a>
+        @:&nbsp; &nbsp;
+        <a class="btn btn-danger" href="#" onclick="deleteDomain(@Model.Id);"><i class="fas fa-trash"></i> Delete</a>
+        @:&nbsp; &nbsp;
+    }
+    <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+</div>
+@section Scripts{
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <script>
+        function deleteWord(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/Words/Delete/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+        function deleteDomain(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/Domains/Delete/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+    </script>
+}

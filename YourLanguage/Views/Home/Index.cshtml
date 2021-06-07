@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>*@
+
+<div class="row">
+    <div class="col-4">
+        <a class="button button5" asp-action="Quiz" asp-controller="Study"><i class="fas fa-feather"></i></a>
+        <p style="font-size: 25px; padding-left: 50px;">Measure your vocabulary.</p>
+    </div>
+    <div class="col-4">
+        <a class="button button4" asp-action="Index" asp-controller="Quiz"><i class="fab fa-grav"></i></a>
+        <p style="font-size: 25px; padding-left: 50px;">Try yourselves with a test.</p>
+    </div>
+    <div class="col-4">
+        <a class="button button3" asp-action="Index" asp-controller="Study"><i class="fas fa-chalkboard-teacher"></i></a>
+        <p style="font-size: 25px; padding-left: 50px;">Go laboratory to study...</p>
+    </div>
+</div>

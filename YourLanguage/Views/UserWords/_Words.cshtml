@@ -1,0 +1,77 @@
+﻿@model WordReportViewModel
+<div asp-validation-summary="All" class="text-danger">
+    <p class="text-success">
+        @{
+            string count;
+            if (ViewBag.RecordCount == 1)
+            {
+                count = ViewBag.RecordCount + " product found.";
+            }
+            else
+            {
+                count = ViewBag.RecordCount + " products found.";
+            }
+            @count
+        }
+    </p>
+    <div class="row" style="padding-bottom: 20px;">
+        <div class="col-2" style="text-align: left;">
+            <select asp-for="PageNumber" asp-items="Model.PageNumbers" class="form-control" id="pagenumber"></select>
+        </div>
+    </div>
+</div>
+<input asp-for="OrderByExpression" id="orderbyexpressioninput" type="hidden"/>
+<input asp-for="OrderByDirectionAscending" id="orderbydirectioninput" type="hidden"/>
+@if (Model.Words != null && Model.Words.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a style="color: black" href="#" class="orderbyexpressionlink">@Html.DisplayNameFor(model => model.Words.FirstOrDefault().Vocable)</a>
+                </th>
+                <th>
+                    <a style="color: black" href="#" class="orderbyexpressionlink">@Html.DisplayNameFor(model => model.Words.FirstOrDefault().Mean)</a>
+                </th>
+                <th>
+                    <a style="color: black" href="#" class="orderbyexpressionlink">@Html.DisplayNameFor(model => model.Words.FirstOrDefault().Domain)</a>
+                </th>
+                <th>
+                    <a style="color: black" href="#" class="orderbyexpressionlink">@Html.DisplayNameFor(model => model.Words.FirstOrDefault().Count)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Words.FirstOrDefault().Active)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Words)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vocable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mean)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Domain)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-danger">
+        No Product Found!
+    </p>
+}
+

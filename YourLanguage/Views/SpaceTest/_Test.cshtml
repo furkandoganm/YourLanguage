@@ -1,0 +1,72 @@
+﻿@model SpaceViewModel
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Fill the blanks.
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            foreach (var item in Model.SpaceTest)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionPart1)
+                    </td>
+                    <td>
+                        @if (Model.IsCorrectAnswer)
+                        {
+                            <input asp-for="SpaceTest[i].Answer" type="text" /><i style="color: dodgerblue;" class="fas fa-eye"></i>
+                        }
+                        else
+                        {
+                            <input asp-for="SpaceTest[i].TriedAnswer" type="text" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionPart2)
+                    </td>
+                    <td style="color: dodgerblue">
+                        @if (item.AnswerWord != null)
+                        {
+                            <p>(@Html.DisplayFor(modelItem => item.AnswerWord))</p>
+                        }
+                    </td>
+                    <td>
+                        <input asp-for="SpaceTest[i].Id" value="@item.Id" type="hidden" />
+                    </td>
+                    @if (Model.IsCheck && !Model.IsCorrectAnswer)
+                    {
+                        <td>
+                            @if (!item.IsCorrect)
+                            {
+                                <i style="color: red;" class="fas fa-2x fa-times"></i>
+                            }
+                            @if (item.IsCorrect)
+                            {
+                                <i style="color: lawngreen;" class="fas fa-2x fa-check"></i>
+                            }
+                        </td>
+                    }
+                </tr>
+                i += 1;
+            }
+        }
+    </tbody>
+</table>
+<div>
+    <a value="Check" class="btn btn-primary" id="spacetestcheck"> Check</a>
+    @if (Model.IsCheck)
+    {
+        @:&nbsp; &nbsp;
+        <a class="btn btn-outline-dark" id="correctanswers"> Correct Answers</a>
+    }
+    @if (Model.PageNumber < Model.PageCount)
+    {
+        @:&nbsp; &nbsp;
+        <a class="btn btn-outline-primary" id="nexttext" asp-action="Test" asp-route-topicId="@Model.TopicId">Next Test <i class="fas fa-arrow-circle-right"></i></a>
+    }
+</div>

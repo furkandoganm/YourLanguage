@@ -1,0 +1,21 @@
+﻿@model WordReportViewModel
+
+@{
+    ViewBag.Title = "User/Word Report";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row paddingtop">
+    <div class="col-12">
+
+        <partial name="_Words" model="Model" />
+
+    </div>
+</div>
+
+<div class="row paddingtop">
+    <div class="col-12">
+        <a asp-action="UserWordExcel" class="btn btn-success">Print Excel</a>
+    </div>
+</div>

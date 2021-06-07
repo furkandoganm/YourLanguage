@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @model MainViewModel
+
+    @{
+        ViewData["Title"] = "Study Page";
+    }
+    <style>
+        .add{
+            color: yellow;
+        }
+        .p {
+            padding-top: 20px;
+            padding-left: 30px;
+        }
+        .isdeleted {
+            /*padding-top: 20px;
+            padding-left: 30px;*/
+            color: red;
+        }
+        .info {
+            color: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: dodgerblue;padding-left: 3%; padding-top: 25px;">@ViewData["Title"]</h1>
+
+    @{
+        if (ViewBag.IsDeleted != null)
+        {
+
+            <p class="text-danger col-4 p isdeleted"><i class="fas fa-exclamation-circle"></i> @ViewBag.IsDeleted</p>
+        }
+        if (ViewBag.Info != null)
+        {
+
+            <p class="text-danger col-4 p info"><i class="fas fa-info"></i> @ViewBag.Info</p>
+        }
+    }
+    <div class="row">
+        <div class="col-4" style="padding-top: 50px; padding-left: 50px;">
+            <h5 style="color: blueviolet;"><i class="fas fa-2x fa-feather-alt"></i> @Html.DisplayNameFor(model => model.StudyModels)</h5>
+            @*<hr />*@
+            <table class="table">
+                <!--<thead>
+                    <tr>
+                        <th>
+                            Html.DisplayNameFor(model => model.StudyModels.FirstOrDefault().ListName)
+                        </th>
+                    </tr>-->
+                @*<h6 style="color: darkblue">@Html.DisplayNameFor(model => model.StudyModels)</h6>*@
+                @*<hr />*@
+                <!--</thead>-->
+                <tbody>
+                    @*@await Component.InvokeAsync("Categories")*@
+                    @if (Model.StudyModels != null && Model.StudyModels.Count() > 0)
+                    {
+                        @foreach (var item in Model.StudyModels)
+                        {
+                            <tr>
+                                <th>
+                                    <a class="text-uppercase" asp-action="Quiz" asp-route-listName="@item.ListName"><i class="fas fa-circle"></i> @Html.DisplayFor(modelItem => item.ListName)</a>
+                                </th>
+                                <td>
+                                    <a asp-action="Details" asp-route-listName="@item.ListName"><i class="fas fa-info-circle"></i> Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>
+                                <a class="text"><i class="fas fa-folder-open"></i> Empty.</a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="table">
+                <a class="btn btn-primary" asp-action="Create"><i class="fas fa-calendar-plus add"></i> Add New One</a>
+            </div>
+        </div>
+        <div class="col-4" style="padding-top: 50px; padding-left: 30px;">
+            <h5 style="color: blueviolet;"><i class="fas fa-2x fa-spell-check"></i> @Html.DisplayNameFor(model => model.QuestionTest)</h5>
+            <table class="table">
+                @*<thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuestionTest.FirstOrDefault().Topic)
+                            </th>
+                        </tr>
+                    </thead>*@
+                <tbody>
+                    @if (Model.QuestionTest != null && Model.QuestionTest.Count() > 0)
+                    {
+                        @foreach (var item in Model.QuestionTest)
+                        {
+                            <tr>
+                                <th>
+                                    <a class="text-uppercase" asp-action="Test" asp-controller="QuestionTest" asp-route-topicId="@item.TopicId"><i class="fas fa-circle"></i> @Html.DisplayFor(modelItem => item.Topic)</a>
+                                </th>
+                                <td>
+                                    <a asp-action="Index" asp-controller="QuestionTest" asp-route-topicId="@item.TopicId"><i class="fas fa-info-circle"></i> Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>
+                                <a class="text"><i class="fas fa-folder-open"></i> Empty.</a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="table">
+                <a class="btn btn-primary" asp-action="Create" asp-controller="QuestionTest" ><i class="fas fa-calendar-plus add"></i> Add New One</a>
+            </div>
+        </div>
+        <div class="col-4" style="padding-top: 50px; padding-left: 30px;">
+            <h5 style="color: blueviolet;"><i class="fas fa-2x fa-file-upload"></i> @Html.DisplayNameFor(model => model.SpaceTests)</h5>
+            <table class="table">
+                @*<thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SpaceTests.FirstOrDefault().Topic)
+                            </th>
+                        </tr>
+                    </thead>*@
+                <tbody>
+                    @if (Model.SpaceTests != null && Model.SpaceTests.Count() > 0)
+                    {
+                        @foreach (var item in Model.SpaceTests)
+                        {
+                            <tr>
+                                <th>
+                                    <a class="text-uppercase" asp-action="Test" asp-controller="SpaceTest" asp-route-topicId="@item.TopicId"><i class="fas fa-circle"></i> @Html.DisplayFor(modelItem => item.Topic)</a>
+                                </th>
+                                <td>
+                                    <a asp-action="Index" asp-controller="SpaceTest" asp-route-topicId="@item.TopicId"><i class="fas fa-info-circle"></i> Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>
+                                <a class="text"><i class="fas fa-folder-open"></i> Empty.</a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="table">
+                <a class="btn btn-primary" asp-action="Create" asp-controller="SpaceTest"><i class="fas fa-calendar-plus add"></i> Add New One</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

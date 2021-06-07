@@ -1,0 +1,64 @@
+﻿@model UserModel
+
+@{ 
+    ViewBag.Title = "Create User";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-6">
+        <form asp-action="Create" method="post" autocomplete="off" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <div class="form-group col-6">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="EMail"></label>
+                <input asp-for="EMail" class="form-control" />
+                <span asp-validation-for="EMail" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-8">
+                @{
+                    if (ViewBag.Roles != null)
+                    {
+                        foreach (var role in ViewBag.Roles as SelectList)
+                        {
+                            if (role.Selected)
+                            {
+                                <input asp-for="RoleId" type="radio" value="@role.Value" checked />
+                            }
+                            else
+                            {
+                                <input asp-for="RoleId" type="radio" value="@role.Value" />
+                            }
+                            @:&nbsp;
+                            @role.Text
+                            @:&nbsp;&nbsp;&nbsp;
+                        }
+                    }
+                }
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="Active"></label>
+                <input asp-for="Active" type="checkbox"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                &nbsp;&nbsp;
+                <input type="reset" value="Reset" class="btn btn-warning" />
+                &nbsp;&nbsp;&nbsp;
+                <a asp-action="Index" class="btn btn-info"><i class="fas fa-backward"></i> Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model UserModel
+
+@{
+    ViewBag.Title = "User Details";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+<div>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EMail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EMail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumbersofWordLearned)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumbersofWordLearned)
+        </dd>
+    </dl>
+    <div class="row">
+        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Edit</a>
+        &nbsp;&nbsp;
+        <a href="#" class="btn btn-danger" onclick="deleteUser(@Model.Id);" id="deletedirectly"><i class="fas fa-trash"></i> Delete</a>
+        &nbsp;&nbsp;
+        <a asp-action="Index" class="btn btn-info"><i class="fas fa-backward"></i> Back to List</a>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script>
+        function deleteUser(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/User/DeleteDirectly/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+    </script>
+}

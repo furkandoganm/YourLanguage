@@ -1,0 +1,52 @@
+﻿@model SpaceTestModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2" style="text-decoration-style: solid;">
+            @Html.DisplayNameFor(model => model.QuestionPart1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionPart1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerPart1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AnswerPart1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionPart1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionPart2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Topic)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Topic.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerWord)
+        </dt>
+        <dd class="col-sm-10" style="color: blue;">
+            @if (Model.AnswerWord != null)
+            {
+                <p>(@Html.DisplayFor(model => model.AnswerWord))</p>
+            }
+        </dd>
+    </dl>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash"></i> Delete</a>
+        @:&nbsp; &nbsp;
+    }
+    <a class="btn btn-info" asp-action="Index" asp-route-topicId="@Model.TopicId"><i class="fas fa-step-backward"></i> @Model.Topic.Name list</a>
+    &nbsp; &nbsp;
+    <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to list</a>
+</div>

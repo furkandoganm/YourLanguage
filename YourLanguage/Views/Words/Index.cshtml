@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WordModel>
+
+@{
+    ViewData["Title"] = "Word List";
+    OperationNamesViewModel operations = new OperationNamesViewModel();
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i style="color: yellow;" class="fas fa-plus-square"></i> Create New</a>
+</p>
+<table id="words" class="ui celled table" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vocable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mean)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Domain)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vocable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mean)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Domain.Name)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @*<a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Edit</a>
+                            @:&nbsp; &nbsp;*@
+                        <a title = "@operations.Edit" class="btn btn-outline-primary circlebutton" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                        @:&nbsp; &nbsp;
+                    }
+                    <a title="@operations.Details" class="btn btn-secondary circlebutton" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+                    @*<a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i> Details</a>*@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @:&nbsp; &nbsp;
+                        <a title="@operations.Delete" class="btn btn-danger circlebutton" href="#" onclick="deleteWord(@item.Id);"><i class="fas fa-trash"></i></a>
+                        @*<a class="btn btn-danger" href="#" onclick="deleteWord(@item.Id);"><i class="fas fa-trash"></i> Delete</a>*@
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/datatables.js"></script>
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <script>
+        $(function () {
+            BindDataTable("words");
+        });
+        function deleteWord(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vont to delete this product?",
+                function () {
+                    window.location.href = "/Words/Delete/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        };
+    </script>
+}

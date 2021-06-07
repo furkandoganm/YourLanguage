@@ -1,0 +1,27 @@
+﻿@model RoleModel
+
+@{
+    ViewBag.Title = "Update Role";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+
+<div>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @Html.AntiForgeryToken()
+        <div class="form-group col-5">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <input type="reset" value="Reset" class="btn btn-warning" />
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-info"><i class="fas fa-backward"></i> Bact to List</a>
+        </div>
+    </form>
+</div>

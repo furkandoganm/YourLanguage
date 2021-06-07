@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RoleModel>
+
+@{
+    ViewBag.Title = "Role List";
+    OperationNamesViewModel operations = new OperationNamesViewModel();
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+@if (ViewBag.Info != null)
+{
+    <p style="color: dodgerblue;">
+        @ViewBag.Info
+    </p>
+}
+@if (ViewBag.Danger != null)
+{
+    <p style="color: red;">
+        @ViewBag.Danger
+    </p>
+}
+<div>
+    <a asp-action="Create" class="btn btn-primary"><i style="color: yellow;" class="fas fa-plus-square"></i> Create New</a>
+</div>
+<div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            if (item.Name != "Admin" && item.Name != "User")
+                            {
+                                <a title="@operations.Edit" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary circlebutton"><i class="fas fa-edit"></i></a>
+                                @:&nbsp; &nbsp;
+                                <a title="@operations.Delete" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger circlebutton"><i class="fas fa-trash"></i></a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

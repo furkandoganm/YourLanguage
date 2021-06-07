@@ -1,0 +1,87 @@
+﻿@model StudyViewModel
+
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <form asp-action="Quiz" data-ajax="true" data-ajax-method="post" data-ajax-mode="replacewith" data-ajax-update="#userwords" autocomplete="off" id="quizform">
+        <input asp-for="ListName" type="hidden" />
+        @*<input asp-for="IsQuizCorrect" type="hidden" id="iscorrect" />
+            <input asp-for="QuizCount" type="hidden" id="quizcountinput" />
+            <input asp-for="QuizNumber" type="hidden" id="quiznumberinput" />
+            <input asp-for="StudyModel.FirstOrDefault().LearningDegree" type="hidden" id="quizlearningdegree" />*@
+        <div class="row" style="padding-top: 50px; padding-left: 80px;">
+            <div class="col-2">
+                <a class="btn btn-outline-primary" id="quiznumberprevious"><i class="fas fa-arrow-circle-left"></i> Past</a>
+            </div>
+            <div class="col-8" id="userwords">
+                <partial name="_WordsQuiz" model="@Model" />
+            </div>
+            <div class="col-2">
+                <a class="btn btn-outline-primary" id="quiznumbernext">Next <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="padding-top: 50px; padding-left: 63px;">
+    @*<a asp-action="SaveChanges" class="btn btn-light"><i class="fas fa-share-square"></i> Save Study</a>
+        &nbsp;&nbsp;*@
+    <a asp-action="Index" class="btn btn-outline-info"><i class="fas fa-school"></i> Main Page</a>
+</div>
+@section Scripts {
+
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#iscorrect").val(null);
+            $("#wasshown").val(false);
+            $("#tryquizmean").val("");
+        });
+        $(document).on("click", "#quizcheck", function () {
+            var meanval = $("#quizmean").val().toUpperCase();
+            var vocableval = $("#tryquizmean").val().trim().toUpperCase();
+            if (meanval == vocableval) {
+                $("#iscorrect").val(true);
+                $("#quizform").submit();
+            } else {
+                $("#iscorrect").val(false);
+                $("#quizform").submit();
+            }
+        });
+        $(document).on("click", "#quiznumbernext", function () {
+            var quiznumber = Number($("#quiznumberinput").val()) + 1;
+            var quizcount = Number($("#quizcountinput").val());
+            if (quiznumber > quizcount) {
+                $("#quiznumberinput").val(1);
+            } else {
+                $("#quiznumberinput").val(Number($("#quiznumberinput").val()) + 1);
+            }
+            $("#quizform").submit();
+        });
+        $(document).on("click", "#quiznumberprevious", function () {
+            var quiznumber = Number($("#quiznumberinput").val()) - 1;
+            var quizcount = Number($("#quizcountinput").val());
+            if (quiznumber < 1) {
+                $("#quiznumberinput").val(quizcount);
+            } else {
+                $("#quiznumberinput").val(Number($("#quiznumberinput").val()) - 1);
+            }
+            $("#quizform").submit();
+        });
+        $(document).on("click", "#showansver", function () {
+            if ($("#wasshown").val() == "false") {
+                $("#wasshown").val(true);
+                $("#quizform").submit();
+            }
+            else {
+                $("#wasshown").val(false);
+                $("#quizform").submit();
+            }
+        });
+    </script>
+}

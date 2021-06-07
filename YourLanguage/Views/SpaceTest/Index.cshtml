@@ -1,0 +1,125 @@
+﻿@model IEnumerable<SpaceTestModel>
+
+@{
+    ViewBag.Title = "Space Tests List";
+    OperationNamesViewModel operations = new OperationNamesViewModel();
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+<div>
+    <div>
+        <a class="btn btn-primary" asp-action="Create" style="text-decoration: dotted;"><i style="color: yellow;" class="fas fa-calendar-plus"></i> Add New One</a>
+    </div>
+    <table class="table">
+        <thead>
+            @if (ViewBag.Topic == true)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => Model.FirstOrDefault().Topic.Name)
+                    </th>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th>
+                        @ViewBag.Title
+                    </th>
+                </tr>
+            }
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionPart1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AnswerPart1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionPart2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AnswerWord)
+                </th>
+                <th>
+                    @if (ViewBag.Topic == false)
+                    {
+                        @Html.DisplayNameFor(model => model.Topic)
+                    }
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionPart1)
+                    </td>
+                    <td style="color: red;">
+                        @Html.DisplayFor(modelItem => item.AnswerPart1)
+                    </td>
+                    @if (item.QuestionPart2 != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionPart2)
+                        </td>
+                        <td style="color: blue;">
+                            (
+                            @if (item.AnswerWord != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.AnswerWord)
+                            }
+                            )
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+                    <td>
+                        @if (ViewBag.Topic == false)
+                        {
+                            @Html.DisplayFor(modelItem => item.Topic.Name)
+                        }
+                    </td>
+                    <td>
+                        <a title="@operations.Details" class="btn btn-secondary circlebutton" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @:&nbsp;&nbsp;
+                            <a title="@operations.Delete" class="btn btn-danger circlebutton" href="#" onclick="deletequestiontest(@item.Id);"><i class="fas fa-trash"></i></a>
+                            @:&nbsp; &nbsp;
+                            <a title="@operations.Edit" class="btn btn-outline-primary circlebutton" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row" style="padding-left: 20px;">
+        <a class="btn btn-outline-info" asp-action="Index" asp-controller="Study"><i class="fas fa-school"></i> Main Page</a>
+        &nbsp;&nbsp;
+        <a class="btn btn-outline-warning" asp-action="Index"><i class="fas fa-list-ul"></i> All List</a>
+    </div>
+</div>
+@section Scripts {
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+    <script>
+        function deletequestiontest(id) {
+            alertify.confirm("Warning",
+                "Are you sure do you vant to delete this product?",
+                function () {
+                    //alertify.success("Delete Success.");
+                    window.location.href = "/SpaceTest/Delete/" + id;
+                },
+                function () {
+                    alertify.error("Delete canceled.");
+                }
+            );
+        }
+    </script>
+}

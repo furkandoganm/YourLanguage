@@ -1,0 +1,52 @@
+﻿@model StudyViewModel
+@if (Model != null)
+{
+    <!--Model.StudyModel[Model.QuizNumber - 1]-->
+    <div class="row" style="padding-left: 30px;">
+        <input asp-for="IsQuizCorrect" type="hidden" id="iscorrect" />
+        <input asp-for="QuizCount" type="hidden" id="quizcountinput" />
+        <input asp-for="QuizNumber" type="hidden" id="quiznumberinput" />
+
+        @if (!Model.WasShown)
+        {
+            <input asp-for="StudyModel[Model.QuizNumber - 1].Mean" class="form-control" type="hidden" id="quizmean" />
+        }
+        <input asp-for="StudyModel[Model.QuizNumber - 1].LearningDegree" type="hidden" id="quizlearningdegree" />
+        <input asp-for="WasShown" type="hidden" id="wasshown" />
+        <div class="col-3">
+            <a class="btn btn-outline-info">@Html.DisplayFor(model => model.StudyModel[Model.QuizNumber - 1].Vocable)</a>
+        </div>
+        <div class="col-4">
+            @if (Model.WasShown)
+            {
+                <input asp-for="StudyModel[Model.QuizNumber - 1].Mean" class="form-control" id="quizmean" />
+            }
+            else
+            {
+                <input value="" class="form-control" id="tryquizmean" />
+            }
+        </div>
+        <div class="col-5" style="padding-left: 30px;">
+            @if (!Model.WasShown)
+            {
+                <a class="btn btn-warning" id="quizcheck"> Check</a>
+                @if (Model.IsQuizCorrect == true)
+                {
+                    <a class="btn btn-success" id="correct"><i class="fas fa-check"></i></a>
+                }
+                else if (Model.IsQuizCorrect == false)
+                {
+                    <a class="btn btn-danger" id="fail"><i class="fas fa-times"></i></a>
+                }
+            }
+            <a class="btn btn-info" id="showansver"><i class="fas fa-eye"></i></a>
+
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-danger">
+        Not found any word.
+    </p>
+}

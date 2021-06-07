@@ -1,0 +1,246 @@
+﻿﻿body {
+    background: #6d7fcc;
+}
+
+.button {
+    border: none;
+    background-color: #deb887;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 105px;
+    margin: 80px 40px;
+}
+.button5 {
+    color: #87adde;
+    border-radius: 30%;
+    width: 300px;
+    height: 210px;
+}
+.button4 {
+    color: #9cde87;
+    border-radius: 30%;
+    width: 300px;
+    height: 210px;
+}
+.button3 {
+    color: #b887de;
+    border-radius: 30%;
+    width: 300px;
+    height: 210px;
+}
+
+.circlebutton {
+    border-radius: 40%;
+}
+
+.a-sidebar {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+    .a-sidebar:hover {
+        color: inherit;
+        text-decoration: underline;
+        transition: all 0.3s;
+    }
+
+    .a-sidebar:focus {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .a-sidebar:visited {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+.a-navbar {
+    color: #7FFFD4;
+    background-color: #6d7fcc;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1.1em;
+}
+
+    .a-navbar:hover {
+        color: #7FFFD4;
+        background-color: #6d7fcc;
+        text-decoration: underline;
+        transition: all 0.3s;
+        font-size: 1.1em;
+    }
+
+    .a-navbar:focus {
+        color: #7FFFD4;
+        background-color: #6d7fcc;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 1.1em;
+    }
+
+    .a-navbar:visited {
+        color: #7FFFD4;
+        background-color: #6d7fcc;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 1.1em;
+    }
+
+.navbar {
+    background: #6d7fcc !important;
+    border: none;
+    border-radius: 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    height: 75px;
+}
+
+    .navbar li {
+        padding: 10px 10px;
+    }
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 150px;
+    max-width: 150px;
+    background: #7386D5;
+    color: #7FFFD4;
+    transition: all 0.3s;
+}
+
+    #sidebar.active {
+        margin-left: -150px;
+    }
+
+    #sidebar .sidebar-header {
+        padding: 18px;
+        background: #6d7fcc;
+        height: 75px;
+    }
+
+    #sidebar ul.components {
+        padding: 20px 0;
+        border-bottom: 1px solid #47748b;
+    }
+
+    #sidebar ul p {
+        color: #7FFFD4;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+    #sidebar ul li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+    }
+
+        #sidebar ul li a:hover {
+            color: #7FFFD4;
+            background: #7386D5;
+        }
+
+    #sidebar ul li.active > a,
+    a[aria-expanded="true"] {
+        color: #7FFFD4;
+        background: #6d7fcc;
+    }
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.container {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+    max-width: 99% !important;
+}
+
+.li-active {
+    background-color: #7FFFD4;
+}
+
+    .li-active a {
+        color: #6d7fcc !important;
+        background-color: #7FFFD4 !important;
+        font-size: 1.1em;
+    }
+
+.navbar-button {
+    border-color: #7FFFD4 !important;
+    background-color: #6d7fcc !important;
+}
+
+.navbar-span {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+
+.navbar-light .navbar-text a {
+    color: #7FFFD4;
+}
+
+    .navbar-light .navbar-text a:hover {
+        color: #7FFFD4;
+    }
+
+.s-navbar {
+    color: #7FFFD4;
+}
+
+.div-navbar {
+    padding-top: 1px;
+}
+
+ul.admin {
+    padding-top: 5px;
+}
+
+    ul.admin a {
+        text-align: left;
+        font-size: 0.9em !important;
+        display: block;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+#navbarSupportedContent {
+    background-color: #6d7fcc !important;
+    border-style: solid !important;
+    border-width: 3px !important;
+    border-color: #6d7fcc !important;
+}
+
+.row-padding {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.records-count {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+    .records-count span {
+        font-weight: bold;
+    }

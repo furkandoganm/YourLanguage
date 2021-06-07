@@ -1,0 +1,65 @@
+﻿@model RoleModel
+
+@{
+    ViewBag.Title = "Delete Role";
+}
+
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+<p style="color: dodgerblue;">
+    @if (ViewBag.Info != null)
+    {
+        @ViewBag.Info
+    }
+</p>
+<p style="color: red;">
+    @if (ViewBag.Danger != null)
+    {
+        @ViewBag.Danger
+    }
+</p>
+<div class="row">
+    <div class="col-6">
+        <hr />
+        <form asp-action="Delete" method="post">
+            <input asp-for="Name" type="hidden" />
+            <input asp-for="Id" type="hidden" />
+            <dl class="table">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-4" style="padding-top: 20px;">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                &nbsp;&nbsp;
+                <a asp-action="Index" class="btn btn-info"><i class="fas fa-backward"></i> Bact to List</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-6" style="padding-top: 16px;">
+        @if (ViewBag.Users != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            User Name
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Users as SelectList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Text)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

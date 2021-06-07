@@ -1,0 +1,40 @@
+﻿@model SpaceViewModel
+
+@{
+    ViewBag.Title = Model.Topic;
+}
+<h1 style="color: dodgerblue;">@ViewBag.Title</h1>
+<div>
+    <form asp-action="Test" autocomplete="off" id="spacechackform" data-ajax="true" data-ajax-method="post" data-ajax-mode="replacewith" data-ajax-update="#spacetestajax">
+        <input asp-for="Topic" type="hidden" />
+        <input asp-for="IsCheck" type="hidden" id="ischeck" />
+        <input asp-for="IsCorrectAnswer" type="hidden" id="iscorrectanswer" />
+        <input asp-for="PageCount" type="hidden" />
+        <input asp-for="PageNumber" type="hidden" />
+        <input asp-for="TopicId" type="hidden" />
+        <div class="col-12" id="spacetestajax">
+            <partial name="_Test" model="@Model" />
+        </div>
+    </form>
+    <div style="padding-top: 30px;">
+        <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to list</a>
+        &nbsp;&nbsp;
+        <a class="btn btn-outline-info" asp-action="Index" asp-controller="Study"><i class="fas fa-school"></i> Main Page</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        $(document).on("click", "#spacetestcheck", function () {
+            $("#ischeck").val(true);
+            $("#iscorrectanswer").val(false);
+            $("#spacechackform").submit();
+        });
+        $(document).on("click", "#correctanswers", function () {
+            $("#iscorrectanswer").val(true);
+            $("#ischeck").val(false);
+            $("#spacechackform").submit();
+        });
+    </script>
+}

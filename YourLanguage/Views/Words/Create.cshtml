@@ -1,0 +1,52 @@
+﻿@model WordModel
+
+@{
+    ViewData["Title"] = "Create Word";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" autocomplete="off" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <div class="form-group col-6">
+                <label asp-for="Vocable"></label>
+                <input asp-for="Vocable" class="form-control" />
+                <span asp-validation-for="Vocable" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="Mean"></label>
+                <input asp-for="Mean" class="form-control" />
+                <span asp-validation-for="Mean" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="DomainId"></label>
+                <select asp-for="DomainId" class="form-control" asp-items="ViewBag.Domains">
+                    <option value="">--Select--</option>
+                </select>
+                <span asp-validation-for="DomainId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath"></label>
+                <br />
+                <input type="file" name="image" accept="@AppSettings.AcceptedImageExtensions" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                &nbsp;&nbsp;
+                <a class="btn btn-info" asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+        <a asp-action="Index"><i class="fas fa-backward"></i> Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

@@ -1,0 +1,156 @@
+﻿@model TestViewModel
+
+@{
+    ViewBag.Title = "Quiz Result";
+}
+
+<div class="col-6">
+    <p style="text-size-adjust: initial; color: blue;">
+        @ViewBag.CorrectNumber (Correct question / Total question count)
+    </p>
+</div>
+<div class="col-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().UserWord.Vocable)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().UserWord.Mean)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().UserWord.Answer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().UserWord.IsCorrect)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Test)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserWord.Vocable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserWord.Mean)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserWord.Answer)
+                    </td>
+                    <td>
+                        @if (item.UserWord.IsCorrect == true)
+                        {
+                            <i style="color: lawngreen;" class="fas fa-check"></i>
+                        }
+                        else
+                        {
+                            <i style="color: red;" class="fas fa-times"></i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().QuestionTest.Question)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().QuestionTest.Answers)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().QuestionTest.SelectedAnswer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().QuestionTest.IsCorrect)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Test)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionTest.Question)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionTest.Answers.SingleOrDefault(qt => qt.Id == 3).Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionTest.SelectedAnswer.Name)
+                    </td>
+                    <td>
+                        @if (item.QuestionTest.IsCorrect == true)
+                        {
+                            <i style="color: lawngreen;" class="fas fa-check"></i>
+                        }
+                        else
+                        {
+                            <i style="color: red;" class="fas fa-times"></i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().SpaceTest.QuestionPart1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().SpaceTest.Answer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().SpaceTest.QuestionPart2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().SpaceTest.TriedAnswer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Test.FirstOrDefault().SpaceTest.IsCorrect)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Test)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpaceTest.QuestionPart1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpaceTest.Answer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpaceTest.QuestionPart2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpaceTest.TriedAnswer)
+                    </td>
+                    <td>
+                        @if (item.SpaceTest.IsCorrect == true)
+                        {
+                            <i style="color: lawngreen;" class="fas fa-check"></i>
+                        }
+                        else
+                        {
+                            <i style="color: red;" class="fas fa-times"></i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-info" asp-action="Index" asp-controller="Study" ><i class="fas fa-school"></i> Main Page</a>
+</div>

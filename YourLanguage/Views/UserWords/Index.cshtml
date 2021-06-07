@@ -1,0 +1,76 @@
+﻿@model WordReportViewModel
+
+@{
+    ViewData["Title"] = "Word Report";
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <form asp-action="Index" data-ajax="true" data-ajax-method="post" data-ajax-mode="replacewith" data-ajax-update="#words" autocomplete="off" id="reportform">
+        <div class="row" style="padding-bottom: 20px;">
+            <div class="col-1">
+                <label asp-for="Filter.Vocable"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="Filter.Vocable" class="form-control" />
+            </div>
+            <div class="col-1">
+                <label asp-for="Filter.Mean"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="Filter.Mean" class="form-control" />
+            </div>
+            <div class="col-1">
+                <label asp-for="Filter.DomainId"></label>
+            </div>
+            <div class="col-3">
+                <select asp-for="Filter.DomainId" class="form-control" asp-items="ViewBag.Domains">
+                    <option value="">--Select to filter--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 20px; padding-left: 20px;">
+            <div class="col-10">
+                <button type="submit" class="btn btn-success" id="search"> Search</button>
+                &nbsp;&nbsp;&nbsp;
+                <a asp-action="Index" class="btn btn-warning"> Clear</a>
+            </div>
+        </div>
+        <div id="words">
+            <partial name="_Words" model="Model" />
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-12">
+        @*<a asp-action="UserWordExcel" class="btn btn-success">Print Excel</a>*@
+        <a asp-action="Export" class="btn btn-outline-success"><i class="fas fa-download"></i> Export</a>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on("change", "#pagenumber", function () {
+                $("#reportform").submit();
+            });
+
+            $(document).on("click", ".orderbyexpressionlink", function (e) {
+                e.preventDefault();
+                $("#pagenumber").val(1);
+                $("#orderbyexpressioninput").val($(this).text());
+                var ascending = $("#orderbydirectioninput").val();
+                if (ascending == "True")
+                    ascending = "False";
+                else
+                    ascending = "True";
+                $("#orderbydirectioninput").val(ascending);
+                $("#reportform").submit();
+            });
+        });
+    </script>
+}

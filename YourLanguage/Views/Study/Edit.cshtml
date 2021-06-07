@@ -1,0 +1,81 @@
+﻿@model StudyViewModel
+
+@{
+    ViewData["Title"] = "Edit List";
+    OperationNamesViewModel operations = new OperationNamesViewModel();
+}
+
+<h1 style="color: dodgerblue;">@ViewData["Title"]</h1>
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyModel.FirstOrDefault().Mean)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyModel.FirstOrDefault().Vocable)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StudyModel)
+        {
+            <tr>
+                @*@foreach (var itemSelectList in Model.SelectLists)
+                    {
+                        @if (itemSelectList.SelectListId == Model.StudyModel[i].Id)
+                        {
+                            <th>
+                                <select asp-for="StudyModel.FirstOrDefault().Id" class="form-control" asp-items="Model.SelectLists[i].SelectList"></select>
+                                <span asp-validation-for="StudyModel.FirstOrDefault().Id" class="text-danger"></span>
+                            </th>
+                        }
+                    }*@
+                <th>
+                    @Html.DisplayFor(modelIter => item.Mean)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Vocable)
+                </th>
+                <th>
+                    <a title="@operations.Delete" class="btn btn-danger circlebutton" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-eraser"></i></a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<form asp-action="Edit" class="row" autocomplete="off">
+    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+    <input asp-for="ListName" type="hidden" />
+    @*@Html.AntiForgeryToken()*@
+    <div class="col-4">
+        <select asp-for="Word.Id" class="form-control" asp-items="Model.SelectList">
+            <option value="">--Select--</option>
+        </select>
+        <span asp-validation-for="Word.Id" class="text-danger"></span>
+    </div>
+    @*<div class="col-4">
+        <input value="" class="form-control" id="vocable" />
+    </div>*@
+    <div class="col-2">
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+    <div class="col-4" style="padding-top: 7px;">
+        @if (ViewBag.Error != null)
+            {
+                <p class="text-danger"><i class="fas fa-exclamation-circle"></i> @ViewBag.Error</p>
+            } 
+    </div>
+</form>
+
+<div style="padding-top: 30px;">
+    <a asp-action="Index" class="btn btn-outline-info"><i class="fas fa-school"></i> Main Page</a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

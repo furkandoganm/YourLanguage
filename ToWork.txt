@@ -1,0 +1,6 @@
+Uygulamanýn doðru çalýþabilmesi için yapýlmasý gerekenler
+1. "User" ve "Admin" isimli ve sýrasýyla 2 ve 1 id'lerine sahip roller eklenmiþ olmalýdýr
+2. En az bir domain ve en az bir topic eklenmiþ olmalýdýr
+3. Quiz alanýnýn çalýþabilmesi için en az 5 userword tablosu oluþturulmuþ olmalýdýr
+4. En az 5 question test ve 5 space test eklenmiþ olmalýdýr
+5. en az 5 word eklenmiþ olmalýdýr
